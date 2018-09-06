@@ -1,2 +1,2 @@
-bookindex: bookIndex.c
-	gcc -o bookindex bookIndex.c
+bookindex: bookIndex.c HString.c
+	gcc -o $@ $^
