@@ -1,7 +1,7 @@
 #include "HString.h"
 
 void freeAlloc(HString t){
-	if(t->chars){
+	if(t->chars && t->length){
 		free(t->chars);
 	}
 }
