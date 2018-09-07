@@ -8,18 +8,11 @@ void freeAlloc(HString t){
 
 void StrAssign(HString t,char *chars){
 	size_t clen = strlen(chars);
-	char *temp = (char*)malloc(clen+1);
 
-	freeAlloc(t);
-	if(temp){
-		memset(temp,'\0',clen+1);
-		for(size_t i = 0; i < clen; ++i){
-			temp[i] = chars[i];
-		}
-		freeAlloc(t);
-		t->chars = temp;
-		t->length = clen;
+	if( !t->chars ){
+		t->chars = (char*)malloc(clen);
 	}
+	strcpy(t->chars, chars);
 }
 
 String strtoString(char *chars){

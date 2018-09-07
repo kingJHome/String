@@ -121,9 +121,8 @@ int InsIdxList(IdxListType *idxlist,HString bno){
 			int j = Locate(*idxlist, wd, &result);
 			if( !result ){
 				InsertNewKey(idxlist, j, wd);					//插入新的索引项
-			}else{
-				result = InsertBook(idxlist, j, bno);			//插入书号索引
 			}
+			result = InsertBook(idxlist, j, bno);				//插入书号索引
 		}
 	}
 
@@ -155,15 +154,19 @@ void GetWord(int i,HString wd){
 
 int Locate(IdxListType idxlist,HString wd,int *b){
 	int m,i,
-		result;
-
-	for(i = idxlist.last - 1; (m = StrCompare(*(idxlist.item[i].key), *wd)) > 0; --i);
-	if(m == 0){
-		*b = 1;
-		result = i;
+		result = 0;
+	
+	if(idxlist.last >= 1){
+		for(i = idxlist.last - 1; i>=0 && (m = StrCompare(*(idxlist.item[i].key), *wd)) > 0; --i);
+		if(m == 0){
+			*b = 1;
+			result = i;
+		}else{
+			*b = 0;
+			result = i+1;
+		}
 	}else{
 		*b = 0;
-		result = i+1;
 	}
 
 	return result;
@@ -174,6 +177,9 @@ void InsertNewKey(IdxListType *idxlist,int i,HString wd){
 		idxlist->item[j+1] = idxlist->item[j];
 	}
 	//插入新的索引项
+	if(idxlist->item[i].key==NULL){
+		idxlist->item[i].key = (HString)malloc(sizeof(String));
+	}
 	StrCopy(idxlist->item[i].key, *wd);
 	InitList(&(idxlist->item[i].bnolist));
 	++idxlist->last;
