@@ -10,6 +10,11 @@ typedef struct{
 
 typedef int ElemType;	//定义连表的数据元素类型为整形(书号类型)
 
+typedef struct bookno{
+	ElemType bookno;
+	struct bookno *next;
+}*LinkList,sBookNo;
+
 typedef struct{
 	HString key;		//关键词
 	LinkList bnolist;	//存放书号索引的连表
@@ -28,8 +33,11 @@ WordListType wdlist;	//词表
 //初始化操作，置索引表idexlist为空表，且在idxlist.item[0]设一空串
 void InitIdxList(IdxListType *idxlist);
 
+//插入书号链表
+void Append(LinkList collect,LinkList p);
+
 //从文件f读入一个书目信息到书目缓冲区buf
-void getLine(FILE *f);
+void GetLine(FILE *f);
 
 //从buf中提取书名关键词到词表wdlist，书号存入bno
 void ExtractKeyWord(ElemType *bn);
@@ -45,7 +53,7 @@ void GetWord(int i,HString wd);
 
 //在索引表idxlist中查询是否存在与wd相等的关键词。若存在，则返回其在索引表
 //中的位置，且b取之TRUE；否则返回插入位置，且b取值FALSE
-int Locate(IdxListType idxlist,HString wd,_Bool *b);
+int Locate(IdxListType idxlist,HString wd,int *b);
 
 //在索引表idxlist的第i项上插入新关键词wd，并初始化书号索引的链表为空表
 void InsertNewKey(IdxListType *idxlist,int i,HString wd);
