@@ -16,8 +16,11 @@ int main(int argc,char *argv[]){
 
 		while( !feof(ff) ){
 			GetLine(ff);
-			ExtractKeyWord(&BookNo);
-			InsIdxList(idxlist,BookNo);
+			if(strlen(buf) > 0){
+				ExtractKeyWord(&BookNo);
+				InsIdxList(idxlist,BookNo);
+			}
+			buf = "";
 		}
 		PutText(gf, idxlist);
 		//关闭文件
@@ -163,7 +166,7 @@ int Locate(IdxListType idxlist,HString wd,int *b){
 			result = i;
 		}else{
 			*b = 0;
-			result = i+1;
+			result = idxlist.last;
 		}
 	}else{
 		*b = 0;
