@@ -30,7 +30,7 @@ void Concat(HString t,String s1,String s2);
 
 void SubString(HString Sub,String s,size_t pos,size_t len);
 
-size_t Index(String s,String t,size_t pos);
+long int Index(String s,String t,size_t pos);
 
 void Replace(HString s,String t,String v);
 

@@ -6,12 +6,12 @@
 #include "bookIndex.h"
 
 int main(int argc,char *argv[]){
-	FILE *ff = fopen("Books.txt","r"),
+	FILE *ff = fopen("books.txt","r"),
 		 *gf = fopen("bookIndex.txt","w");
 	HString BookNo;
 	IdxListType *idxlist;
 
-	if(ff && gf && idxlist){
+	if(ff && gf){
 		InitIdxList(&idxlist);
 
 		while( !feof(ff) ){
@@ -56,8 +56,9 @@ void tolowerFn(char *chars){
 int iskeyword(char *chars){
 	int keyword = 1;
 	String temp = strtoString(chars);
+	long int result = Index(nokeyword,temp,0);
 
-	if(Index(nokeyword,temp,0)>=0){
+	if(result>=0){
 		keyword = 0;
 	}
 	
@@ -88,7 +89,7 @@ void ExtractKeyWord(HString *bn){
 		int i;
 		
 		*bn = (HString)malloc(sizeof(String));
-		if( bn ){
+		if( *bn ){
 			StrAssign(*bn,bresult);
 			bresult = strtok(NULL," ");
 			while( bresult ){

@@ -141,15 +141,15 @@ void SubString(HString Sub,String s,size_t pos,size_t len){
 	}
 }
 
-size_t Index(String s,String t,size_t pos){
-	size_t result = -1;
+long int Index(String s,String t,size_t pos){
+	long int result = -1;
 
 	if(pos>=0 && pos+t.length<=s.length){
 		size_t tempIndex,
 			   innerIndex,
 			   tlen = t.length;
 		
-		for(tempIndex = pos; tempIndex < s.length; ++tempIndex){
+		for(tempIndex = pos; tempIndex <= s.length-tlen; ++tempIndex){
 			for(innerIndex = 0; innerIndex < tlen; ++innerIndex){
 				if(s.chars[tempIndex+innerIndex] != t.chars[innerIndex]){
 					break;
