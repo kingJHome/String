@@ -196,6 +196,10 @@ int InsertBook(IdxListType *idxlist,int i,HString bno){
 	}else{
 		p->bookno = bno;
 		p->next = NULL;
+		if(idxlist->item[i].bnolist == NULL){
+			idxlist->item[i].bnolist = (LinkList)malloc(sizeof(sBookNo));
+			idxlist->item[i].bnolist->next = NULL;
+		}
 		Append(idxlist->item[i].bnolist,p);
 		return 1;
 	}
