@@ -22,6 +22,7 @@ int main(int argc,char *argv[]){
 			}
 			buf = "";
 		}
+		sortResult(idxlist);
 		PutText(gf, idxlist);
 		//关闭文件
 		fclose(ff);
@@ -131,6 +132,20 @@ int InsIdxList(IdxListType *idxlist,HString bno){
 	}
 
 	return result;
+}
+
+void sortResult(IdxListType *idxlist){
+	IdxTermType temp;
+	
+	for(int i = 0; i < idxlist->last; ++i){
+		for(int j = i+1; j < idxlist->last; ++j){
+			if( StrCompare(*(idxlist->item[i].key), *(idxlist->item[j].key)) > 0 ){
+				temp = idxlist->item[i];
+				idxlist->item[i] = idxlist->item[j];
+				idxlist->item[j] = temp;
+			}
+		}
+	}
 }
 
 void PutText(FILE *g,IdxListType *idxlist){

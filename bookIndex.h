@@ -53,6 +53,9 @@ void ExtractKeyWord(HString *bn);
 //将书号为bno的书名关键词按辞典顺序插入索引表idxlist
 int InsIdxList(IdxListType *idxlist,HString bno);
 
+//对列表进行排序
+void sortResult(IdxListType *idxlist);
+
 //将生成的索引表idxlist输出到文件g
 void PutText(FILE *g,IdxListType *idxlist);
 
