@@ -95,6 +95,7 @@ void ExtractKeyWord(HString *bn){
 		if( *bn ){
 			StrAssign(*bn,bresult);
 			bresult = strtok(NULL," ");
+			wdlist.last = 0;
 			while( bresult ){
 				tolowerFn(bresult);
 				if( iskeyword(bresult) ){
@@ -151,7 +152,7 @@ void PutText(FILE *g,IdxListType *idxlist){
 }
 
 void GetWord(int i,HString wd){
-	char *p = *(wdlist.item + i);	//取词表中第i个字符串
+	char *p = wdlist.item[i];	//取词表中第i个字符串
 	StrAssign(wd, p);
 }
 
@@ -160,7 +161,7 @@ int Locate(IdxListType idxlist,HString wd,int *b){
 		result = 0;
 	
 	if(idxlist.last >= 1){
-		for(i = idxlist.last - 1; i>=0 && (m = StrCompare(*(idxlist.item[i].key), *wd)) > 0; --i);
+		for(i = idxlist.last - 1; i>=0 && (m = StrCompare(*(idxlist.item[i].key), *wd)) != 0; --i);
 		if(m == 0){
 			*b = 1;
 			result = i;

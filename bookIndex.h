@@ -8,8 +8,6 @@ typedef struct{
 	int last;					// 词表的长度
 }WordListType;					// 词表类型(顺序表)
 
-typedef int ElemType;	//定义连表的数据元素类型为整形(书号类型)
-
 typedef struct bookno{
 	HString bookno;
 	struct bookno *next;
@@ -28,7 +26,7 @@ typedef struct{
 //主要变量
 char *buf;				//书目串缓冲区
 WordListType wdlist;	//词表
-String nokeyword = {"a/an/in/on/of/off/the/and\0",25};
+String nokeyword = {"a/an/to/in/on/of/off/the/and\0",28};
 
 /*******************基本操作************************/
 //初始化操作，置索引表idexlist为空表，且在idxlist.item[0]设一空串

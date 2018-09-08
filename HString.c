@@ -10,9 +10,11 @@ void StrAssign(HString t,char *chars){
 	size_t clen = strlen(chars);
 
 	if( !t->chars ){
-		t->chars = (char*)malloc(clen);
+		t->chars = (char*)malloc(clen+1);
+		memset(t->chars,'\0',clen+1);
 	}
 	strcpy(t->chars, chars);
+	t->length = clen;
 }
 
 String strtoString(char *chars){
@@ -37,14 +39,13 @@ String strtoString(char *chars){
 }
 
 void StrCopy(HString t,String s){
-	char *temp = (char*)malloc(s.length);
+	char *temp = (char*)malloc((s.length+1));
 	if(temp){
 		freeAlloc(t);
-		t->length = s.length;
+		memset(temp,'\0',s.length+1);
+		strcpy(temp, s.chars);
 		t->chars = temp;
-		for(size_t i = 0; i < s.length; ++i){
-			t->chars[i] = s.chars[i];
-		}
+		t->length = s.length;
 	}
 }
 
@@ -53,30 +54,7 @@ int StrEmpty(String s){
 }
 
 int StrCompare(String s,String t){
-	size_t minlen = s.length >= t.length ? t.length : s.length,
-		   index = 0;
-	int result = 0,
-		finish = 0;
-
-	for( ; index < minlen; ++index){
-		if(s.chars[index] > t.chars[index]){
-			finish = 1;
-			result = 1;
-			break;
-		}else if(s.chars[index] < t.chars[index]){
-			finish = 1;
-			result = -1;
-			break;
-		}
-	}
-
-	if( !finish ){
-		if(s.length > minlen){
-			result = 1;
-		}else if(t.length > minlen){
-			result = -1;
-		}
-	}
+	int result = strcmp(s.chars, t.chars);
 
 	return result;
 }
